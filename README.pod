@@ -9,7 +9,7 @@ POE::Component::IRC::Plugin::Pastebot - A Pastebot with IRC announcements
 To quickly get an IRC bot with this plugin up and running, you can use
 L<App::Pocoirc|App::Pocoirc>:
 
- $ pocoirc -s irc.perl.org -j '#bots' -a 'Pastebot{ "pastebot_args":{ "paste_dir":"/tmp/pastes", "iname":"http://foo.com:8888" } }'
+ $ pocoirc -s irc.perl.org -j '#bots' -a 'Pastebot{ "Pastebot_args":{ "paste_dir":"/tmp/pastes", "iname":"http://foo.com:8888" } }'
 
 Or use it in your code:
 
