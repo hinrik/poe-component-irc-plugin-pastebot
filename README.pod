@@ -1,0 +1,73 @@
+=encoding utf8
+
+=head1 NAME
+
+POE::Component::IRC::Plugin::Pastebot - A Pastebot with IRC announcements
+
+=head1 SYNOPSIS
+
+To quickly get an IRC bot with this plugin up and running, you can use
+L<App::Pocoirc|App::Pocoirc>:
+
+ $ pocoirc -s irc.perl.org -j '#bots' -a 'Pastebot{ "pastebot_args":{ "paste_dir":"/tmp/pastes", "iname":"http://foo.com:8888" } }'
+
+Or use it in your code:
+
+ use POE::Component::IRC::Plugin::Pastebot
+
+ my $pastebot = POE::Component::IRC::Plugin::Pastebot->new(
+     Where => {
+         freenode => ['#mychannel', '#myotherchannel'],
+     },
+     Pastebot_args => {
+          # ...
+     },
+ );
+
+ $irc->plugin_add(
+     Pastebot => $pastebot,
+     network  => 'freenode',
+ ));
+
+=head1 DESCRIPTION
+
+This plugin requires the IRC component to be
+L<POE::Component::IRC::State|POE::Component::IRC::State> or a subclass thereof.
+
+B<Note>: This plugin can be loaded into multiple IRC components simultaneously.
+It expects a C<< network => 'foo' >> parameter when being registered
+(C<< $irc->plugin_add('Alias', Plugin->(), network => 'foo' >>).
+
+=head1 METHODS
+
+=head2 C<new>
+
+Takes the following optional arguments:
+
+B<'Where'>, a hash reference telling the plugin in which channels it should
+be active. The keys are network names, the values are either C<'all'> or an
+array reference of channel names. If you don't supply this argument, the
+plugin will be active in all channels on all networks.
+
+C<'Pastebot_args'>, a hash reference of arguments which will be passed to
+L<POE::Component::Server::Pastebot|POE::Component::Server::Pastebot>'s
+constructor.
+
+B<'Pastebot'>, an already existing pastebot object to use, if you don't want
+the plugin to create one for you.
+
+Returns a plugin object suitable for feeding to
+L<POE::Component::IRC|POE::Component::IRC>'s C<plugin_add> method.
+
+=head1 AUTHOR
+
+Hinrik E<Ouml>rn SigurE<eth>sson, hinrik.sig@gmail.com
+
+=head1 LICENSE AND COPYRIGHT
+
+Copyright 2010 Hinrik E<Ouml>rn SigurE<eth>sson
+
+This program is free software, you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+=cut
